@@ -1,14 +1,14 @@
 ﻿using Azure.Core;
 using Azure.Identity;
 using Azure.Security.KeyVault.Secrets;
-using StreamServer.Storage.CredentialsModel;
+using SecretServices.CredentialsModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SecretServices
+namespace SecretServices.Services
 {
     public abstract class AzureKeyVaultBaseService : IBaseSecrets
     {
@@ -29,7 +29,7 @@ namespace SecretServices
 
         public KeyVaultSecret CallGetSecret(string key) => secretClient.GetSecretAsync(key).Result.Value;
 
-        public virtual string GetSecretValue(string key) => CallGetSecret(key).Value;
+        public virtual string GetValue(string key) => CallGetSecret(key).Value;
     }
 
     public interface IAzureCertificateService
@@ -53,7 +53,6 @@ namespace SecretServices
             CCC = new ClientCertificateCredential(AzureCredentials.tenantId, AzKeyCert.clientId, AzKeyCert.CertificatePath);
             secretClient = new SecretClient(new Uri(AzKeyCert.azureUri), CCC, options);
         }
-
     }
 
     public class AzureKeyVaultX509CertificateService : AzureKeyVaultBaseService, IAzureCertificateService

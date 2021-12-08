@@ -1,5 +1,6 @@
 ﻿using Amazon;
 using Amazon.SecretsManager;
+using Amazon.SecretsManager.Extensions.Caching;
 using Amazon.SecretsManager.Model;
 using System;
 using System.Collections.Generic;
@@ -7,7 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SecretServices
+namespace SecretServices.Services
 {
     public class AWSSecretService : IBaseSecrets, IDisposable
     {
@@ -29,6 +30,6 @@ namespace SecretServices
             Cache.Dispose();
         }
 
-        public string GetSecretValue(string name) => Task.Run(async () => await client.GetSecretValueAsync(request)).Result?.SecretString;
+        public string GetValue(string name) => Task.Run(async () => await client.GetSecretValueAsync(request)).Result?.SecretString;
     }
 }

@@ -4,10 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SecretServices
+namespace SecretServices.Services
 {
     public interface IBaseSecrets
     {
-        public string GetSecretValue(string key);
+        public string GetValue(string key);
     }
 }
